@@ -1,10 +1,8 @@
 package com.example.firstflow;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +38,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         return listData.size();
     }
 
-    void addItem(Contact data) {
+    public void addItem(Contact data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
     }
