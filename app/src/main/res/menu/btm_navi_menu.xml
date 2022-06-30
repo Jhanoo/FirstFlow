@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tab_contact"
+        android:enabled="true"
+        android:icon="@drawable/contact"
+        android:title="연락처"/>
+
+    <item
+        android:id="@+id/tab_gallery"
+        android:enabled="true"
+        android:icon="@drawable/gallery"
+        android:title="갤러리"/>
+
+    <item
+        android:id="@+id/tab_cloud"
+        android:enabled="true"
+        android:icon="@drawable/cloud"
+        android:title="클라우드"/>
+
+</menu>

@@ -1,13 +1,12 @@
 package com.example.firstflow;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.firstflow.dto.Contact;
@@ -40,9 +39,13 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         return listData.size();
     }
 
-    void addItem(Contact data) {
+    public void addItem(Contact data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+    }
+
+    public void deleteAllItem(){
+        listData.clear();
     }
 
     // RecyclerView의 핵심인 ViewHolder 입니다.
@@ -51,19 +54,20 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
 
         private TextView textView1;
         private TextView textView2;
-        private TextView textView3;
+        private ImageView imgView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
 
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
-            textView3 = itemView.findViewById(R.id.textView3);
+            imgView = itemView.findViewById(R.id.profileImg);
         }
 
         void onBind(Contact data) {
             textView1.setText(data.getName());
             textView2.setText(data.getPhoneNum());
+            imgView.setImageResource(R.drawable.personicon);
         }
     }
 }
