@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.firstflow.ContactRecyclerAdapter;
+import com.example.firstflow.adapter.ContactRecyclerAdapter;
 import com.example.firstflow.R;
 import com.example.firstflow.dto.Contact;
 
@@ -57,8 +57,6 @@ public class ContactFragment extends Fragment {
         return fragment;
     }
 
-    private ContactRecyclerAdapter adapter;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +66,8 @@ public class ContactFragment extends Fragment {
         }
 
     }
+
+    private ContactRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -156,6 +156,5 @@ public class ContactFragment extends Fragment {
 
         return contactList;
     }
-
 
 }

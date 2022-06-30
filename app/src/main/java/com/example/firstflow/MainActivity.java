@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView btmNaviView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         btmNaviView = findViewById(R.id.bottomNavigationView);
         btmNaviView.setSelectedItemId(R.id.tab_contact);
+
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.home_ly, new ContactFragment())
                 .commit();
