@@ -1,4 +1,4 @@
-package com.example.firstflow;
+package com.example.firstflow.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.firstflow.R;
 import com.example.firstflow.dto.Contact;
 
 import java.util.ArrayList;

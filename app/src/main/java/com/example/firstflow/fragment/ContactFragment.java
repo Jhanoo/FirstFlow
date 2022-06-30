@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.example.firstflow.ContactRecyclerAdapter;
+import com.example.firstflow.adapter.ContactRecyclerAdapter;
 import com.example.firstflow.R;
 import com.example.firstflow.dto.Contact;
 
@@ -55,8 +55,6 @@ public class ContactFragment extends Fragment {
         Logic Start
      */
 
-    private ContactRecyclerAdapter adapter;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -67,6 +65,8 @@ public class ContactFragment extends Fragment {
         }
 
     }
+
+    private ContactRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,13 +88,17 @@ public class ContactFragment extends Fragment {
         getData(a);
 
 
-        EditText editText = (EditText)v.findViewById(R.id.searchText);
+        EditText editText = (EditText) v.findViewById(R.id.searchText);
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 // 사용자가 입력한 문자가 바뀔 때 마다 새로 검색
@@ -177,13 +181,13 @@ public class ContactFragment extends Fragment {
         return contactList;
     }
 
-    private ArrayList<Contact> searchList(ArrayList<Contact> list, String key){
+    private ArrayList<Contact> searchList(ArrayList<Contact> list, String key) {
         ArrayList<Contact> ret = new ArrayList<>();
 
-        for(int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
             Contact current = list.get(i);
 
-            if(current.getName().contains(key)){
+            if (current.getName().contains(key)) {
                 ret.add(current);
             }
         }
