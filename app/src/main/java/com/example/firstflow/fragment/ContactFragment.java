@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.firstflow.ContactRecyclerAdapter;
 import com.example.firstflow.R;
@@ -40,15 +42,6 @@ public class ContactFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ContactFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ContactFragment newInstance(String param1, String param2) {
         ContactFragment fragment = new ContactFragment();
         Bundle args = new Bundle();
@@ -58,10 +51,15 @@ public class ContactFragment extends Fragment {
         return fragment;
     }
 
+    /*
+        Logic Start
+     */
+
     private ContactRecyclerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -87,14 +85,34 @@ public class ContactFragment extends Fragment {
 
         // 데이터 가져오기
         ArrayList<Contact> a = getContactList();
-        Log.d(null, "img : " + a.get(1).getPhotoId());
         getData(a);
+
+
+        EditText editText = (EditText)v.findViewById(R.id.searchText);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                // 사용자가 입력한 문자가 바뀔 때 마다 새로 검색
+                ArrayList<Contact> contacts = getContactList();
+
+                ArrayList<Contact> searchedContacts = searchList(contacts, s.toString());
+                getData(searchedContacts);
+            }
+        });
 
 
         return v;
     }
 
     private void getData(ArrayList<Contact> a) {
+        // 기존에 있는 데이터 삭제(검색용)
+        adapter.deleteAllItem();
+
         for (int i = 0; i < a.size(); i++) {
             Contact data = new Contact();
             data.setName(a.get(i).getName());
@@ -159,5 +177,17 @@ public class ContactFragment extends Fragment {
         return contactList;
     }
 
+    private ArrayList<Contact> searchList(ArrayList<Contact> list, String key){
+        ArrayList<Contact> ret = new ArrayList<>();
 
+        for(int i=0;i<list.size();i++){
+            Contact current = list.get(i);
+
+            if(current.getName().contains(key)){
+                ret.add(current);
+            }
+        }
+
+        return ret;
+    }
 }
