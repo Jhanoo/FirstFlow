@@ -6,15 +6,31 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
+    android:paddingTop="15dp"
+    android:background="@drawable/box_border"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
 
+    <ImageView
+        android:id="@+id/profileImg"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:paddingRight="0dp"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@drawable/personicon" />
+
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="5dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center"
+        android:paddingRight="30dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textStyle="bold"
@@ -22,15 +38,11 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="010-0000-0000"
         android:textAlignment="textStart" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
 </LinearLayout>

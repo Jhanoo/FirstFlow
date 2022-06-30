@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class ContactFragment extends Fragment {
 
         // 데이터 가져오기
         ArrayList<Contact> a = getContactList();
+        Log.d(null, "img : " + a.get(1).getPhotoId());
         getData(a);
 
 
