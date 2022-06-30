@@ -26,12 +26,12 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="0dp"
+        android:layout_width="107dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:paddingRight="30dp"
-        android:textAlignment="center"
+        android:paddingLeft="10dp"
+        android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textStyle="bold"
         tools:text="Name" />
@@ -43,6 +43,6 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="010-0000-0000"
-        android:textAlignment="textStart" />
+        android:textAlignment="center" />
 
 </LinearLayout>
