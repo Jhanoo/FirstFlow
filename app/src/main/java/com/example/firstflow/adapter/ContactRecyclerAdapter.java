@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.firstflow.R;
@@ -44,25 +45,30 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         listData.add(data);
     }
 
+    public void deleteAllItem(){
+        listData.clear();
+    }
+
     // RecyclerView의 핵심인 ViewHolder 입니다.
     // 여기서 subView를 setting 해줍니다.
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textView1;
         private TextView textView2;
-        private TextView textView3;
+        private ImageView imgView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
 
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
-            textView3 = itemView.findViewById(R.id.textView3);
+            imgView = itemView.findViewById(R.id.profileImg);
         }
 
         void onBind(Contact data) {
             textView1.setText(data.getName());
             textView2.setText(data.getPhoneNum());
+            imgView.setImageResource(R.drawable.personicon);
         }
     }
 }

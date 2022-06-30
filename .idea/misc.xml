@@ -3,15 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.27565155029296895" />
         <entry key="app/src/main/res/layout/activity_gallery_recycler_adapter.xml" value="0.21666666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24489978292713993" />
+=======
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/box_border.xml" value="0.178" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/ic_launcher_background.xml" value="0.178" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.25" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_main.xml" value="0.2203125" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/box_border.xml" value="0.1546875" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_cloud.xml" value="0.2203125" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_contact.xml" value="0.33" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_gallery.xml" value="0.2203125" />
+        <entry key="app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
+>>>>>>> origin/main
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1503623188405797" />
-        <entry key="app/src/main/res/layout/fragment_cloud.xml" value="0.21666666666666667" />
-        <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.21666666666666667" />
-        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.20260416666666667" />
-        <entry key="app/src/main/res/layout/menu.xml" value="0.24728260869565216" />
-        <entry key="app/src/main/res/menu/btm_navi_menu.xml" value="0.278125" />
       </map>
     </option>
   </component>
