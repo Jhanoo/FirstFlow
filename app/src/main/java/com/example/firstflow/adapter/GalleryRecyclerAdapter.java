@@ -17,11 +17,11 @@ import java.util.ArrayList;
 
 public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecyclerAdapter.GalleryViewHolder> {
 
-    private ArrayList<Uri> listData = null;
+    private ArrayList<Uri> mData = null;
     private Context mContext = null;
 
     public GalleryRecyclerAdapter(ArrayList<Uri> list, Context context) {
-        listData = list;
+        mData = list;
         mContext = context;
     }
 
@@ -38,37 +38,53 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
     // binds the data to the TextView in each cell
     @Override
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
-        Uri image_uri = listData.get(position);
+        Uri image_uri = mData.get(position);
         Glide.with(mContext).load(image_uri).into(holder.imgView);
-    }
-
-    public void addItem(Uri uri) {
-        // 외부에서 item을 추가시킬 함수입니다.
-        listData.add(uri);
     }
 
     // total number of cells
     @Override
     public int getItemCount() {
-        return listData.size();
+        return mData.size();
     }
 
+    public Uri getData(int pos){
+        return mData.get(pos);
+    }
 
     // stores and recycles views as they are scrolled off screen
-    public class GalleryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class GalleryViewHolder extends RecyclerView.ViewHolder {
         private ImageView imgView;
 
         GalleryViewHolder(View itemView) {
             super(itemView);
             imgView = itemView.findViewById(R.id.galleryImgView);
-            itemView.setOnClickListener(this);
-        }
 
-        // ToDo
-        @Override
-        public void onClick(View v) {
+            itemView.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if(mListener != null){
+                            mListener.onItemClick(v, pos);
+                        }
+                    }
+                }
+            });
+
 
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
+    }
+
+    private OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.mListener = listener;
     }
 
 }
