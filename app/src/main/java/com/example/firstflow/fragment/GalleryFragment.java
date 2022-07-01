@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.firstflow.PictureZoomActivity;
 import com.example.firstflow.R;
 import com.example.firstflow.adapter.GalleryRecyclerAdapter;
 
@@ -72,6 +73,7 @@ public class GalleryFragment extends Fragment {
 
     private GalleryRecyclerAdapter adapter;
     private RecyclerView recyclerView;
+    ArrayList<Uri> uriList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,24 +103,11 @@ public class GalleryFragment extends Fragment {
             }
         });
 
+        adapter = new GalleryRecyclerAdapter(uriList, getContext());
+
+
         return v;
     }
-
-    private final int GALLERY_REQUEST_CODE = 2;
-
-    private void pickFromGallery() {
-        //Create an Intent with action as ACTION_PICK
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-        // Launching the Intent
-        startActivityForResult(intent, GALLERY_REQUEST_CODE);
-    }
-
-    ArrayList<Uri> uriList = new ArrayList<>();
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
@@ -146,6 +135,15 @@ public class GalleryFragment extends Fragment {
                     adapter = new GalleryRecyclerAdapter(uriList, getContext());
                     recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
                     recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+                    adapter.setOnItemClickListener(new GalleryRecyclerAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View v, int pos) {
+                            Intent intent = new Intent(getContext(), PictureZoomActivity.class);
+                            intent.putExtra("imageUri", adapter.getData(pos));
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         }
