@@ -3,6 +3,7 @@ package com.example.firstflow;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,20 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
             imgView = itemView.findViewById(R.id.profileImg);
+
+            // 각 아이템마다 클릭이벤트 생성
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    Intent detailIntent = new Intent(v.getContext(), ContactDetailActivity.class);
+
+                    detailIntent.putExtra("name", textView1.getText());
+                    detailIntent.putExtra("phone", textView2.getText());
+                    detailIntent.putExtra("imgView", "image ID");
+
+                    v.getContext().startActivity(detailIntent);
+                }
+            });
         }
 
         void onBind(Contact data) {
