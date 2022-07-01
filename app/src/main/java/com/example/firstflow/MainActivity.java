@@ -11,47 +11,56 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.firstflow.fragment.CloudFragment;
 import com.example.firstflow.fragment.ContactFragment;
 import com.example.firstflow.fragment.GalleryFragment;
+import com.example.firstflow.fragment.PermissionErrorFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
     public static final String[] PERMISSIONS = new String[]{
+        Manifest.permission.READ_CONTACTS,
         Manifest.permission.CALL_PHONE,
-        Manifest.permission.READ_CONTACTS
+        Manifest.permission.READ_EXTERNAL_STORAGE
     };
+    public static HashMap<String, Boolean> isAllowed = new HashMap<String, Boolean>();
 
     BottomNavigationView btmNaviView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btmNaviView = findViewById(R.id.bottomNavigationView);
         btmNaviView.setSelectedItemId(R.id.tab_contact);
 
+        // Permission Check
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkVerify(PERMISSIONS);
         }
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.home_ly, new ContactFragment())
-                .commit();
-        SettingListener();
+        if(isAllowed.containsKey(PERMISSIONS[0]) && isAllowed.containsKey(PERMISSIONS[1]) && isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
+            changeFragment(new ContactFragment());
+        }else{
+            changeFragment(new PermissionErrorFragment());
+        }
 
+        SettingListener();
     }
 
     // =================== 권한 요청 코드 ==================
@@ -79,29 +88,24 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == 1 && grantResults.length > 0) {
-                for (int i = 0; i < grantResults.length; ++i) {
-                    if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                        // 하나라도 거부한다면.
-                        new AlertDialog.Builder(this).setTitle("알림").setMessage("권한을 허용해주셔야 앱을 이용할 수 있습니다.")
-                                .setPositiveButton("종료", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        MainActivity.this.finish();
-                                    }
-                                }).setNegativeButton("권한 설정", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                                                .setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
-                                        getApplicationContext().startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                                    }
-                                }).setCancelable(false).show();
-
-                        return;
-                    }
-                }
-
+            for (int i = 0; i < grantResults.length; ++i) {
+                isAllowed.put(PERMISSIONS[i], (grantResults[i] == PackageManager.PERMISSION_GRANTED));
+                Log.d("request", ""+isAllowed.get(PERMISSIONS[i]));
+            }
         }
+
+        // 초기 화면이 연락처 fragment(권한 두 개가 필요함)이므로 만약 두 권한이 있다면 ContactFragment를 띄워야 한다.
+        if(isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
+            changeFragment(new ContactFragment());
+        }
+    }
+
+    public void activityRefresh(){
+        finish();
+        overridePendingTransition(0, 0);
+        Intent intent = getIntent();
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 
 
@@ -114,26 +118,40 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.tab_contact: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.home_ly, new ContactFragment())
-                            .commit();
+                    if(isAllowed.get(Manifest.permission.READ_CONTACTS) && isAllowed.get(Manifest.permission.CALL_PHONE)){
+                        changeFragment(new ContactFragment());
+                    }else{
+                        changeFragment(new PermissionErrorFragment());
+                    }
                     return true;
                 }
                 case R.id.tab_gallery: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.home_ly, new GalleryFragment())
-                            .commit();
+                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                        changeFragment(new GalleryFragment());
+                    }else{
+                        changeFragment(new PermissionErrorFragment());
+                    }
                     return true;
                 }
                 case R.id.tab_cloud: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.home_ly, new CloudFragment())
-                            .commit();
+                    changeFragment(new CloudFragment());
                     return true;
                 }
             }
 
             return false;
+        }
+    }
+
+    public void changeFragment(Fragment fragment){
+        try{
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.home_ly, fragment)
+                    .commit();
+        }catch(SecurityException e){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.home_ly, new PermissionErrorFragment())
+                    .commit();
         }
     }
 
