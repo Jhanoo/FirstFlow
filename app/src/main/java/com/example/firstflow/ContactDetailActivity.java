@@ -35,7 +35,7 @@ public class ContactDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String tel = "tel:"+detailIntent.getStringExtra("phone");
-                startActivity(new Intent("android.intent.action.DIAL", Uri.parse(tel)));
+                startActivity(new Intent("android.intent.action.CALL", Uri.parse(tel)));
             }
         });
     }

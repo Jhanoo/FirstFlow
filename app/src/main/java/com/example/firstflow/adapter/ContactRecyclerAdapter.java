@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.firstflow.ContactDetailActivity;
 import com.example.firstflow.R;
 import com.example.firstflow.dto.Contact;
 

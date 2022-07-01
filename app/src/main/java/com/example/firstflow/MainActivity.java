@@ -13,6 +13,7 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,53 +23,62 @@ import com.example.firstflow.fragment.ContactFragment;
 import com.example.firstflow.fragment.GalleryFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
+    public static final String[] PERMISSIONS = new String[]{
+        Manifest.permission.CALL_PHONE,
+        Manifest.permission.READ_CONTACTS
+    };
 
     BottomNavigationView btmNaviView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         btmNaviView = findViewById(R.id.bottomNavigationView);
         btmNaviView.setSelectedItemId(R.id.tab_contact);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkVerify(PERMISSIONS);
+        }
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.home_ly, new ContactFragment())
                 .commit();
         SettingListener();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkVerify(Manifest.permission.READ_CONTACTS);
-        }
-
     }
 
     // =================== 권한 요청 코드 ==================
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void checkVerify(String permissionName) {
-        if (
-                checkSelfPermission(permissionName) != PackageManager.PERMISSION_GRANTED) {
-            // Should we show an explanation?
-            if (shouldShowRequestPermissionRationale(permissionName)) {
-                // ...
+    public void checkVerify(String[] permissions) {
+        Log.d("checkVerify", "checkVerify 진입");
+        ArrayList<String> notAllowedPermissions = new ArrayList<>();
+
+        for(String permissionName : permissions){
+            if(checkSelfPermission(permissionName) != PackageManager.PERMISSION_GRANTED){
+                // TODO : 거절했을 때 할 액션
+                // if (shouldShowRequestPermissionRationale(permissionName)) {}
+
+                notAllowedPermissions.add(permissionName);
             }
-            requestPermissions(new String[]{permissionName},
-                    1);
-        } else {
+        }
+
+        if(notAllowedPermissions.size() > 0){
+            requestPermissions(notAllowedPermissions.toArray(new String[0]),1);
         }
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == 1) {
-            if (grantResults.length > 0) {
+        if (requestCode == 1 && grantResults.length > 0) {
                 for (int i = 0; i < grantResults.length; ++i) {
                     if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                         // 하나라도 거부한다면.
@@ -90,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                 }
-            }
+
         }
     }
 
