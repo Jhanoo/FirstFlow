@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,32 +59,22 @@ public class XylophoneFragment extends Fragment {
 
         Button[] keyboards = {
                 (Button) v.findViewById(R.id.xylophone_do),
-                (Button) v.findViewById(R.id.xylophone_dosharp),
                 (Button) v.findViewById(R.id.xylophone_re),
-                (Button) v.findViewById(R.id.xylophone_resharp),
                 (Button) v.findViewById(R.id.xylophone_mi),
                 (Button) v.findViewById(R.id.xylophone_fa),
-                (Button) v.findViewById(R.id.xylophone_fasharp),
                 (Button) v.findViewById(R.id.xylophone_so),
-                (Button) v.findViewById(R.id.xylophone_sosharp),
                 (Button) v.findViewById(R.id.xylophone_la),
-                (Button) v.findViewById(R.id.xylophone_lasharp),
                 (Button) v.findViewById(R.id.xylophone_ti),
                 (Button) v.findViewById(R.id.xylophone_doHigh),
         };
 
         int[] files = {
                 R.raw.do_,
-                R.raw.dosharp,
                 R.raw.re,
-                R.raw.resharp,
                 R.raw.mi,
                 R.raw.fa,
-                R.raw.fasharp,
                 R.raw.so,
-                R.raw.sosharp,
                 R.raw.la,
-                R.raw.lasharp,
                 R.raw.ti,
                 R.raw.dohigh
         };
