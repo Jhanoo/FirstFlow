@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,11 +161,10 @@ public class GalleryFragment extends Fragment {
             }
 
             InputStream is = null;
-            for(int i = 0; i < uriList.size(); i++) {
+            for (int i = 0; i < uriList.size(); i++) {
                 try {
                     is = getContext().getContentResolver().openInputStream(uriList.get(i));
                 } catch (Exception e) {
-                    Log.d("TAG", "Exception " + e);
                 }
 
                 if (is == null) {
@@ -207,7 +205,6 @@ public class GalleryFragment extends Fragment {
                 Intent intent = new Intent(getContext(), PictureZoomActivity.class);
                 intent.putExtra("imageUri", adapter.getData(pos));
                 intent.putExtra("position", pos);
-                Log.d("pos", ""+pos);
                 startActivityForResult(intent, 3333);
             }
         });

@@ -1,19 +1,28 @@
 package com.example.firstflow.fragment;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.SoundPool;
+import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.firstflow.AudioCaptureService;
 import com.example.firstflow.R;
-import com.example.firstflow.function.Recorder;
 
 public class XylophoneFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -22,7 +31,6 @@ public class XylophoneFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Recorder recorder = new Recorder(this.getContext());
     SoundPool soundPool = new SoundPool.Builder().setMaxStreams(8).build();
     boolean soundPoolLoaded = false;
 
@@ -91,7 +99,6 @@ public class XylophoneFragment extends Fragment {
         };
 
 
-
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 soundPoolLoaded = true;
@@ -115,16 +122,87 @@ public class XylophoneFragment extends Fragment {
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(recordBtn.isChecked()){
-                    recorder.startRecord();
-                }else{
-                    recorder.stopRecord();
+                if (recordBtn.isChecked()) {
+                    startCapturing();
+                } else {
+                    stopCapturing();
                 }
             }
         });
 
         return v;
     }
+
+
+    private final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 42;
+    private final int MEDIA_PROJECTION_REQUEST_CODE = 13;
+
+    private void startCapturing() {
+        if (!isRecordAudioPermissionGranted()) {
+            requestRecordAudioPermission();
+        } else {
+            startMediaProjectionRequest();
+        }
+    }
+
+    private void stopCapturing() {
+        Intent intent = new Intent(getContext(), AudioCaptureService.class);
+        intent.setAction(AudioCaptureService.ACTION_STOP);
+        ContextCompat.startForegroundService(getContext(), intent);
+    }
+
+    private boolean isRecordAudioPermissionGranted() {
+        return ContextCompat.checkSelfPermission(
+                getContext(),
+                Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestRecordAudioPermission() {
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                new String[]{Manifest.permission.RECORD_AUDIO},
+                RECORD_AUDIO_PERMISSION_REQUEST_CODE
+        );
+    }
+
+    private void startMediaProjectionRequest() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            MediaProjectionManager mediaProjectionManager =
+                    (MediaProjectionManager) getContext().getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+
+            startActivityForResult(
+                    mediaProjectionManager.createScreenCaptureIntent(),
+                    MEDIA_PROJECTION_REQUEST_CODE
+            );
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MEDIA_PROJECTION_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(
+                        getContext(),
+                        "MediaProjection permission obtained. Foreground service will be started to capture audio.",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                Intent intent = new Intent(getContext(), AudioCaptureService.class);
+                intent.setAction(AudioCaptureService.ACTION_START);
+                intent.putExtra(AudioCaptureService.EXTRA_RESULT_DATA, data);
+
+
+                ContextCompat.startForegroundService(getContext(), intent);
+            } else {
+                Toast.makeText(
+                        getContext(), "Request to obtain MediaProjection denied.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        }
+    }
+
 
 
 }

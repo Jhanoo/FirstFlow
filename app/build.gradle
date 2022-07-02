@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.firstflow"
-        minSdk 21
+        minSdk 29
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
