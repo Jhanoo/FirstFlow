@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -158,6 +160,20 @@ public class GalleryFragment extends Fragment {
                 JSONObject jobj = jarr.getJSONObject(i);
                 uriList.add(Uri.parse(jobj.getString("uri")));
             }
+
+            InputStream is = null;
+            for(int i = 0; i < uriList.size(); i++) {
+                try {
+                    is = getContext().getContentResolver().openInputStream(uriList.get(i));
+                } catch (Exception e) {
+                    Log.d("TAG", "Exception " + e);
+                }
+
+                if (is == null) {
+                    uriList.remove(i);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -168,15 +184,6 @@ public class GalleryFragment extends Fragment {
         recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
-        adapter.setOnItemClickListener(new GalleryRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                Intent intent = new Intent(getContext(), PictureZoomActivity.class);
-                intent.putExtra("imageUri", adapter.getData(pos));
-                intent.putExtra("position", pos);
-                startActivityForResult(intent, 3333);
-            }
-        });
         // JSON 으로 변환
         try {
             JSONArray jArray = new JSONArray();//배열이 필요할때
@@ -193,6 +200,17 @@ public class GalleryFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        adapter.setOnItemClickListener(new GalleryRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(getContext(), PictureZoomActivity.class);
+                intent.putExtra("imageUri", adapter.getData(pos));
+                intent.putExtra("position", pos);
+                Log.d("pos", ""+pos);
+                startActivityForResult(intent, 3333);
+            }
+        });
     }
 
 }
