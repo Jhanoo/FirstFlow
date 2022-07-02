@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.example.firstflow.R;
 
 import java.util.ArrayList;
@@ -39,7 +41,9 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
     @Override
     public void onBindViewHolder(@NonNull GalleryViewHolder holder, int position) {
         Uri image_uri = mData.get(position);
-        Glide.with(mContext).load(image_uri).into(holder.imgView);
+        Glide.with(mContext)
+                .load(image_uri)
+                .into(holder.imgView);
     }
 
     // total number of cells
@@ -48,7 +52,7 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
         return mData.size();
     }
 
-    public Uri getData(int pos){
+    public Uri getData(int pos) {
         return mData.get(pos);
     }
 
@@ -60,13 +64,13 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
             super(itemView);
             imgView = itemView.findViewById(R.id.galleryImgView);
 
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        if(mListener != null){
+                    if (pos != RecyclerView.NO_POSITION) {
+                        if (mListener != null) {
                             mListener.onItemClick(v, pos);
                         }
                     }
@@ -83,7 +87,7 @@ public class GalleryRecyclerAdapter extends RecyclerView.Adapter<GalleryRecycler
 
     private OnItemClickListener mListener = null;
 
-    public void setOnItemClickListener(OnItemClickListener listener){
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
 

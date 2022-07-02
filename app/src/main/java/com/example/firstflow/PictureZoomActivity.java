@@ -1,8 +1,10 @@
 package com.example.firstflow;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.github.chrisbanes.photoview.PhotoView;
+
+import java.io.InputStream;
 
 public class PictureZoomActivity extends AppCompatActivity {
 
@@ -27,7 +31,23 @@ public class PictureZoomActivity extends AppCompatActivity {
         delBtn = findViewById(R.id.pictureDelBtn);
         int pos = getIntent().getIntExtra("position", -1);
         PhotoView photoView = findViewById(R.id.photoView);
-        photoView.setImageURI(getUri);
+
+        InputStream is = null;
+        try {
+            is = this.getContentResolver().openInputStream(getUri);
+        } catch (Exception e) {
+            Log.d("TAG", "Exception " + e);
+        }
+
+        if (is == null) {
+            Log.d("pos pic", "" + pos);
+            Intent intent = new Intent();
+            intent.putExtra("position", pos);
+            setResult(1, intent);
+            finish();
+        } else {
+            photoView.setImageURI(getUri);
+        }
 
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
