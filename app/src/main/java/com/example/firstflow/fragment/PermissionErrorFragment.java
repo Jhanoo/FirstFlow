@@ -68,7 +68,7 @@ public class PermissionErrorFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_permission_error, container, false);
 
         // button클릭 시 권한 설정 페이지로 넘어가도록
-        Button ctaButton = (Button)v.findViewById(R.id.permission_ctaButton);
+        Button ctaButton = (Button)v.findViewById(R.id.xylophone_do);
         ctaButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
