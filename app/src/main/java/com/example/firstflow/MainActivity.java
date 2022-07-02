@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
                 // if (shouldShowRequestPermissionRationale(permissionName)) {}
 
                 notAllowedPermissions.add(permissionName);
+                isAllowed.put(permissionName, false);
+            }else{
+                isAllowed.put(permissionName, true);
             }
         }
 
@@ -89,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == 1 && grantResults.length > 0) {
             for (int i = 0; i < grantResults.length; ++i) {
-                isAllowed.put(PERMISSIONS[i], (grantResults[i] == PackageManager.PERMISSION_GRANTED));
-                Log.d("request", ""+isAllowed.get(PERMISSIONS[i]));
+                isAllowed.put(permissions[i], (grantResults[i] == PackageManager.PERMISSION_GRANTED));
             }
         }
 
