@@ -1,6 +1,7 @@
 package com.example.firstflow.fragment;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,7 +21,15 @@ import com.example.firstflow.PictureZoomActivity;
 import com.example.firstflow.R;
 import com.example.firstflow.adapter.GalleryRecyclerAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +82,7 @@ public class GalleryFragment extends Fragment {
 
     private GalleryRecyclerAdapter adapter;
     private RecyclerView recyclerView;
+    private final String jsonName = "galleryUri.json";
     ArrayList<Uri> uriList = new ArrayList<>();
 
     @Override
@@ -83,18 +93,11 @@ public class GalleryFragment extends Fragment {
 
         // 리사이클러뷰 띄우기
         recyclerView = v.findViewById(R.id.fragmentGalleryRecyclerView);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-
-
-        // 리사이클러뷰 어댑터 연결
-        recyclerView.setLayoutManager(gridLayoutManager);
-        recyclerView.setAdapter(adapter);
 
         Button upBtn = v.findViewById(R.id.uploadBtn);
         upBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                pickFromGallery();
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -103,51 +106,93 @@ public class GalleryFragment extends Fragment {
             }
         });
 
-        adapter = new GalleryRecyclerAdapter(uriList, getContext());
-
+        readJson();
+        refresh();
 
         return v;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
-            Toast.makeText(getContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
-        } else {   // 이미지를 하나라도 선택한 경우
-            if (data.getClipData() == null) {     // 이미지를 하나만 선택한 경우
-                Uri imageUri = data.getData();
-                uriList.add(imageUri);
-
-                adapter = new GalleryRecyclerAdapter(uriList, getContext());
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-            } else {      // 이미지를 여러장 선택한 경우
+        if (requestCode == 2222) {
+            if (data == null) {   // 어떤 이미지도 선택하지 않은 경우
+                Toast.makeText(getContext(), "이미지를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
+            } else {   // 이미지를 하나라도 선택한 경우
+                // 이미지를 여러장 선택한 경우
                 ClipData clipData = data.getClipData();
 
-                if (clipData.getItemCount() > 10) {   // 선택한 이미지가 11장 이상인 경우
-                    Toast.makeText(getContext(), "사진은 10장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
-                } else {   // 선택한 이미지가 1장 이상 10장 이하인 경우
+                if (clipData.getItemCount() > 30) {   // 선택한 이미지가 30장 이상인 경우
+                    Toast.makeText(getContext(), "사진은 30장까지 선택 가능합니다.", Toast.LENGTH_LONG).show();
+                } else {   // 선택한 이미지가 1장 이상 30장 이하인 경우
                     for (int i = 0; i < clipData.getItemCount(); i++) {
                         Uri imageUri = clipData.getItemAt(i).getUri();  // 선택한 이미지들의 uri를 가져온다.
                         uriList.add(imageUri);  //uri를 list에 담는다.
 
                     }
 
-                    adapter = new GalleryRecyclerAdapter(uriList, getContext());
-                    recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
-                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-
-                    adapter.setOnItemClickListener(new GalleryRecyclerAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(View v, int pos) {
-                            Intent intent = new Intent(getContext(), PictureZoomActivity.class);
-                            intent.putExtra("imageUri", adapter.getData(pos));
-                            startActivity(intent);
-                        }
-                    });
                 }
             }
+        } else if (requestCode == 3333 && resultCode == 1) {
+            int pos = data.getIntExtra("position", -1);
+            uriList.remove(pos);
+
         }
-
-
+        refresh();
     }
+
+    private void readJson() {
+        try {
+            FileInputStream fis = getContext().openFileInput(jsonName);
+            BufferedReader iReader = new BufferedReader((new InputStreamReader(fis)));
+
+            StringBuffer buffer = new StringBuffer();
+            String str = iReader.readLine();
+            while (str != null) {
+                buffer.append(str);
+                str = iReader.readLine();
+            }
+            buffer.append("\n");
+            iReader.close();
+
+            JSONArray jarr = new JSONArray(buffer.toString());
+            for (int i = 0; i < jarr.length(); i++) {
+                JSONObject jobj = jarr.getJSONObject(i);
+                uriList.add(Uri.parse(jobj.getString("uri")));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refresh() {
+        adapter = new GalleryRecyclerAdapter(uriList, getContext());
+        recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
+        adapter.setOnItemClickListener(new GalleryRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                Intent intent = new Intent(getContext(), PictureZoomActivity.class);
+                intent.putExtra("imageUri", adapter.getData(pos));
+                intent.putExtra("position", pos);
+                startActivityForResult(intent, 3333);
+            }
+        });
+        // JSON 으로 변환
+        try {
+            JSONArray jArray = new JSONArray();//배열이 필요할때
+            for (int i = 0; i < uriList.size(); i++) {
+                JSONObject sObject = new JSONObject();//배열 내에 들어갈 json
+                sObject.put("uri", uriList.get(i));
+                jArray.put(sObject);
+            }
+
+            FileOutputStream fos = getContext().openFileOutput(jsonName, Context.MODE_PRIVATE);
+            fos.write(jArray.toString().getBytes());
+            fos.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

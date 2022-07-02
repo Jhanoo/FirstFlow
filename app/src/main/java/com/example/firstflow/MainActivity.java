@@ -34,8 +34,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
     public static final String[] PERMISSIONS = new String[]{
         Manifest.permission.READ_CONTACTS,
-        Manifest.permission.CALL_PHONE,
-        Manifest.permission.READ_EXTERNAL_STORAGE
+        Manifest.permission.CALL_PHONE
     };
     public static HashMap<String, Boolean> isAllowed = new HashMap<String, Boolean>();
 
@@ -128,11 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.tab_gallery: {
-                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
-                        changeFragment(new GalleryFragment());
-                    }else{
-                        changeFragment(new PermissionErrorFragment());
-                    }
+                    changeFragment(new GalleryFragment());
                     return true;
                 }
                 case R.id.tab_cloud: {
