@@ -12,16 +12,16 @@ import com.example.firstflow.R;
 
 import java.util.ArrayList;
 
-public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAdapter.ItemViewHolder> {
+        public class ListenRecyclerAdapter extends RecyclerView.Adapter<com.example.firstflow.adapter.ListenRecyclerAdapter.ItemViewHolder> {
 
-    private ArrayList<String> listData = new ArrayList<>();
+            private ArrayList<String> listData = new ArrayList<>();
 
-    @NonNull
-    @Override
-    public ListenRecyclerAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
-        // return 인자는 ViewHolder 입니다.
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_listen_recycler_adapter, parent, false);
+            @NonNull
+            @Override
+            public com.example.firstflow.adapter.ListenRecyclerAdapter.ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
+                // return 인자는 ViewHolder 입니다.
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_listen_recycler_adapter, parent, false);
         return new ListenRecyclerAdapter.ItemViewHolder(view);
     }
 

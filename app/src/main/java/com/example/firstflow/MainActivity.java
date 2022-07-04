@@ -30,7 +30,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     public static final String[] PERMISSIONS = new String[]{
         Manifest.permission.READ_CONTACTS,
-        Manifest.permission.CALL_PHONE
+        Manifest.permission.CALL_PHONE,
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.READ_EXTERNAL_STORAGE
     };
     public static HashMap<String, Boolean> isAllowed = new HashMap<String, Boolean>();
 
@@ -123,15 +125,27 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.tab_gallery: {
-                    changeFragment(new GalleryFragment());
+                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                        changeFragment(new GalleryFragment());
+                    }else{
+                        changeFragment(new PermissionErrorFragment());
+                    }
                     return true;
                 }
                 case R.id.tab_xylophone: {
-                    changeFragment(new XylophoneFragment());
+                    if(isAllowed.get(Manifest.permission.RECORD_AUDIO)){
+                        changeFragment(new XylophoneFragment());
+                    }else{
+                        changeFragment(new PermissionErrorFragment());
+                    }
                     return true;
                 }
                 case R.id.tab_listen: {
-                    changeFragment(new ListenFragment());
+                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                        changeFragment(new ListenFragment());
+                    }else{
+                        changeFragment(new PermissionErrorFragment());
+                    }
                     return true;
                 }
             }
