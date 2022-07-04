@@ -1,9 +1,14 @@
 package com.example.firstflow.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,19 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstflow.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAdapter.ListenViewHolder> {
 
     private ArrayList<String> listData = new ArrayList<>();
-    private Context mContext = null;
-
-    public ListenRecyclerAdapter(ArrayList<String> listData, Context mContext) {
-        this.listData = listData;
-        this.mContext = mContext;
-    }
+    private static ListenRecyclerAdapter adapter;
 
     public ListenRecyclerAdapter() {
+        adapter = this;
     }
 
     @NonNull
@@ -55,34 +57,51 @@ public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAd
         listData.add(data);
     }
 
+    public void clearItem(){
+        listData.clear();
+    }
+
     class ListenViewHolder extends RecyclerView.ViewHolder {
         private TextView nameTv;
+        private ImageButton moreBtn;
 
         ListenViewHolder(View itemView) {
             super(itemView);
 
             nameTv = itemView.findViewById(R.id.listen_adapter_name);
+            moreBtn = itemView.findViewById(R.id.moreBtn);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO : 누르면 음원 재생되도록 하기
                     int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        if(mListener != null)
+                    if (pos != RecyclerView.NO_POSITION) {
+                        if (mListener != null)
                             mListener.onItemClick(view, pos);
                     }
 
                 }
             });
+            moreBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        if (mListener != null)
+                            mListener.onMenuClick(v, pos);
+                    }
+                }
+            });
         }
 
         void onBind(String data) {
-            nameTv.setText(data);
+            nameTv.setText(data.substring(0,data.length()-4));
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
+        void onMenuClick(View v, int position);
     }
 
     private OnItemClickListener mListener = null;
@@ -90,6 +109,5 @@ public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAd
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mListener = listener;
     }
-
 
 }

@@ -23,4 +23,14 @@
         android:textStyle="bold"
         tools:text="Name" />
 
+    <ImageButton
+        android:id="@+id/moreBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/more"
+        tools:ignore="TouchTargetSizeCheck" />
+
 </LinearLayout>
