@@ -17,6 +17,12 @@
         android:id="@+id/tab_xylophone"
         android:enabled="true"
         android:icon="@drawable/xylophoneicon"
-        android:title="실로폰" />
+        android:title="실로폰 연주" />
+
+    <item
+        android:id="@+id/tab_listen"
+        android:enabled="true"
+        android:icon="@drawable/headseticon"
+        android:title="재생" />
 
 </menu>
