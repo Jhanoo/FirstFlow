@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class AudioCaptureService extends Service {
 
@@ -156,8 +155,8 @@ public class AudioCaptureService extends Service {
         if (!audioCapturesDirectory.exists()) {
             audioCapturesDirectory.mkdirs();
         }
-        String timestamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss", Locale.US).format(new Date());
-        String fileName = "Capture-" + timestamp + ".pcm";
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        String fileName = timestamp + " recorded" + ".pcm";
 
         return new File(audioCapturesDirectory.getAbsolutePath() + "/" + fileName);
     }
