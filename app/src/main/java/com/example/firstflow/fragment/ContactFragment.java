@@ -1,5 +1,6 @@
 package com.example.firstflow.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.firstflow.adapter.ContactRecyclerAdapter;
@@ -106,6 +108,18 @@ public class ContactFragment extends Fragment {
 
                 ArrayList<Contact> searchedContacts = searchList(contacts, s.toString());
                 getData(searchedContacts);
+            }
+        });
+
+        // + 버튼 눌렀을 때 동작
+        Button addContactBtn = v.findViewById(R.id.contact_addBtn);
+        addContactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+                intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+                startActivity(intent);
             }
         });
 
