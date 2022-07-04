@@ -23,8 +23,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="280dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
         app:cardElevation="10dp"
@@ -36,15 +36,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_do"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="270dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -57,15 +57,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_re"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         android:layout_width="260dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -78,15 +78,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_mi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="250dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -99,15 +99,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_fa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView6"
         android:layout_width="240dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -120,15 +120,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_so"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView7"
         android:layout_width="230dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -141,15 +141,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_la"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView8"
         android:layout_width="220dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -162,15 +162,15 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_ti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView9"
         android:layout_width="210dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
         android:layout_marginTop="-25dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
@@ -183,8 +183,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/xylophone_doHigh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
 

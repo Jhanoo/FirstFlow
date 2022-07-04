@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
     @TargetApi(Build.VERSION_CODES.M)
     public void checkVerify(String[] permissions) {
-        Log.d("checkVerify", "checkVerify 진입");
         ArrayList<String> notAllowedPermissions = new ArrayList<>();
 
         for(String permissionName : permissions){
