@@ -126,8 +126,7 @@ public class XylophoneFragment extends Fragment {
                 public void onClick(View view) {
                     if (soundPoolLoaded) {
                         Handler handler = new Handler();
-
-                        soundPool.play(soundId, 5, 5, 1, 0, 1);
+                        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1);
                         keyboard.setBackgroundColor(buttonColor);
 
                         // 누르면 색깔이 바뀌고 0.2초 후에 원래대로 돌아옴.
