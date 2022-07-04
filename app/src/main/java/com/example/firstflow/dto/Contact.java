@@ -1,5 +1,7 @@
 package com.example.firstflow.dto;
 
+import android.net.Uri;
+
 public class Contact {
     long photoId;
     String phoneNum;

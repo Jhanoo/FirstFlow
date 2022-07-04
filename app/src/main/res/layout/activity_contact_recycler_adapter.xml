@@ -17,12 +17,11 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="1"
+        android:background="#00FFFFFF"
         android:clickable="false"
+        android:cropToPadding="false"
         android:maxWidth="30dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="5dp"
-        android:paddingRight="0dp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         tools:srcCompat="@drawable/personicon" />
 
     <TextView
