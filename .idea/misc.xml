@@ -14,14 +14,17 @@
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_cloud.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_contact.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_gallery.xml" value="0.2203125" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen.xml" value="0.27395833333333336" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen_recycler_adapter.xml" value="0.18" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_permission_error.xml" value="0.33" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_xylophone.xml" value="0.33" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_xylophone.xml" value="0.25" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/menu/btm_navi_menu.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/activity_picture_zoom.xml" value="0.21927083333333333" />
+        <entry key="app/src/main/res/layout/fragment_listen.xml" value="0.18795289855072464" />
+        <entry key="app/src/main/res/layout/fragment_listen_recycler_adapter.xml" value="0.18795289855072464" />
+        <entry key="app/src/main/res/layout/fragment_permission_error.xml" value="0.21927083333333333" />
+        <entry key="app/src/main/res/layout/fragment_xylophone.xml" value="0.21927083333333333" />
       </map>
     </option>
   </component>

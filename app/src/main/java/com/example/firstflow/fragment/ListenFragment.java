@@ -1,5 +1,8 @@
 package com.example.firstflow.fragment;
 
+import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioTrack;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,10 +15,14 @@ import android.view.ViewGroup;
 
 import com.example.firstflow.R;
 import com.example.firstflow.adapter.ListenRecyclerAdapter;
-import com.example.firstflow.dto.Contact;
 
-import java.lang.reflect.Array;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,11 +88,30 @@ public class ListenFragment extends Fragment {
 
         // TODO : 파일 리스트 불러온 것을 recyclerView에 넣기
         ArrayList<String> files = new ArrayList<>();
-        files.add("test");
-        files.add("test2");
+        getPcmList(files);
         getData(files);
 
+
+        adapter.setOnItemClickListener(new ListenRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                if (playThread != null) {
+                    playThread.interrupt();
+                }
+                pcmName = files.get(position);
+                playPcm();
+
+            }
+        });
+
         return v;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (playThread != null)
+            playThread.interrupt();
     }
 
     private void getData(ArrayList<String> a) {
@@ -95,4 +121,69 @@ public class ListenFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
     }
+
+    public Thread playThread;
+    private String pcmName;
+
+    private void playPcm() {
+        AudioTrack audioTrack = new AudioTrack.Builder()
+                .setAudioAttributes(new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build())
+                .setAudioFormat(new AudioFormat.Builder()
+                        .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                        .setSampleRate(8000)
+                        .setChannelMask(AudioFormat.CHANNEL_IN_STEREO)
+                        .build())
+                .setBufferSizeInBytes(2048)
+                .build();
+
+        playThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                byte[] writeData = new byte[2048];
+                FileInputStream fis = null;
+                File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
+                String path = audioCapturesDirectory.getAbsolutePath() + "/" + pcmName;
+                try {
+                    fis = new FileInputStream(path);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                DataInputStream dis = new DataInputStream(fis);
+                audioTrack.play();
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        int ret = dis.read(writeData, 0, 2048);
+                        if (ret <= 0) {
+                            break;
+                        }
+                        audioTrack.write(writeData, 0, ret);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                audioTrack.stop();
+                audioTrack.release();
+                try {
+                    dis.close();
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        playThread.start();
+    }
+
+
+    private void getPcmList(ArrayList<String> files) {
+        File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
+        String pcmList[] = audioCapturesDirectory.list();
+        files.addAll(Arrays.asList(pcmList));
+
+    }
+
 }
