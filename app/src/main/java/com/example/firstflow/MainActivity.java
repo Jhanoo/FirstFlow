@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.firstflow.fragment.ListenFragment;
 import com.example.firstflow.fragment.XylophoneFragment;
 import com.example.firstflow.fragment.ContactFragment;
 import com.example.firstflow.fragment.GalleryFragment;
@@ -23,6 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -126,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.tab_xylophone: {
                     changeFragment(new XylophoneFragment());
+                    return true;
+                }
+                case R.id.tab_listen: {
+                    changeFragment(new ListenFragment());
                     return true;
                 }
             }

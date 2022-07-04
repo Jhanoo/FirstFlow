@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -68,32 +69,22 @@ public class XylophoneFragment extends Fragment {
 
         Button[] keyboards = {
                 (Button) v.findViewById(R.id.xylophone_do),
-                (Button) v.findViewById(R.id.xylophone_dosharp),
                 (Button) v.findViewById(R.id.xylophone_re),
-                (Button) v.findViewById(R.id.xylophone_resharp),
                 (Button) v.findViewById(R.id.xylophone_mi),
                 (Button) v.findViewById(R.id.xylophone_fa),
-                (Button) v.findViewById(R.id.xylophone_fasharp),
                 (Button) v.findViewById(R.id.xylophone_so),
-                (Button) v.findViewById(R.id.xylophone_sosharp),
                 (Button) v.findViewById(R.id.xylophone_la),
-                (Button) v.findViewById(R.id.xylophone_lasharp),
                 (Button) v.findViewById(R.id.xylophone_ti),
                 (Button) v.findViewById(R.id.xylophone_doHigh),
         };
 
         int[] files = {
                 R.raw.do_,
-                R.raw.dosharp,
                 R.raw.re,
-                R.raw.resharp,
                 R.raw.mi,
                 R.raw.fa,
-                R.raw.fasharp,
                 R.raw.so,
-                R.raw.sosharp,
                 R.raw.la,
-                R.raw.lasharp,
                 R.raw.ti,
                 R.raw.dohigh
         };
@@ -122,9 +113,13 @@ public class XylophoneFragment extends Fragment {
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (recordBtn.isChecked()) {
+                if(recordBtn.isChecked()){
+                    TextView t = v.findViewById(R.id.xylophone_explanation);
+                    t.setText("아름다운 멜로디 녹음 중...");
                     startCapturing();
-                } else {
+                }else{
+                    TextView t = v.findViewById(R.id.xylophone_explanation);
+                    t.setText("멋진 연주를 녹음해보세요.");
                     stopCapturing();
                 }
             }
@@ -202,7 +197,5 @@ public class XylophoneFragment extends Fragment {
             }
         }
     }
-
-
 
 }

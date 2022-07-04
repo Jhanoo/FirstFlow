@@ -7,15 +7,17 @@
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/ic_launcher_background.xml" value="0.178" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/xylophone_radius.xml" value="0.254" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_detail.xml" value="0.259375" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.25" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.5" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_gallery_recycler_adapter.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/box_border.xml" value="0.1546875" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_cloud.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_contact.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_gallery.xml" value="0.2203125" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen.xml" value="0.27395833333333336" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen_recycler_adapter.xml" value="0.18" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_permission_error.xml" value="0.33" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_xylophone.xml" value="0.25" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_xylophone.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/menu/btm_navi_menu.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.11413043478260869" />
