@@ -1,5 +1,6 @@
 package com.example.firstflow.fragment;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.firstflow.adapter.ContactRecyclerAdapter;
@@ -109,6 +112,18 @@ public class ContactFragment extends Fragment {
             }
         });
 
+        // + 버튼 눌렀을 때 동작
+        Button addContactBtn = v.findViewById(R.id.contact_addBtn);
+        addContactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+                intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+
+                startActivity(intent);
+            }
+        });
+
 
         return v;
     }
@@ -121,6 +136,7 @@ public class ContactFragment extends Fragment {
             Contact data = new Contact();
             data.setName(a.get(i).getName());
             data.setPhoneNum(a.get(i).getPhoneNum());
+            data.setPhotoId(a.get(i).getPhotoId());
 
             adapter.addItem(data);
         }
@@ -133,9 +149,10 @@ public class ContactFragment extends Fragment {
 
 
         String[] projection = new String[]{
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID, // 연락처 ID -> 사진 정보 가져오는데 사
+                ContactsContract.CommonDataKinds.Photo.CONTACT_ID,
                 ContactsContract.CommonDataKinds.Phone.NUMBER, // 연락처
-                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}; // 연락처 이름.
+                ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME // 연락처 이름.
+        };
 
 
         String[] selectionArgs = null;
