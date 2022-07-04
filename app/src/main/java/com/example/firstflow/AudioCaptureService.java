@@ -34,18 +34,17 @@ public class AudioCaptureService extends Service {
     private Thread audioCaptureThread;
     private AudioRecord audioRecord = null;
 
-    private final String LOG_TAG = "AudioCaptureService";
     private final int SERVICE_ID = 123;
     private final String NOTIFICATION_CHANNEL_ID = "AudioCapture channel";
 
     private final int NUM_SAMPLES_PER_READ = 1024;
-    private final int BYTES_PER_SAMPLE = 1; // 2 bytes since we hardcoded the PCM 16-bit format
+    private final int BYTES_PER_SAMPLE = 2; // 2 bytes since we hardcoded the PCM 16-bit format
     private final int BUFFER_SIZE_IN_BYTES = NUM_SAMPLES_PER_READ * BYTES_PER_SAMPLE;
 
     public static final String ACTION_STOP = "AudioCaptureService:Stop";
     public static final String ACTION_START = "AudioCaptureService:Start";
     public static final String EXTRA_RESULT_DATA = "AudioCaptureService:Extra:ResultData";
-
+    public static final int SAMPLING_RATE = 8000;
 
     @Override
     public void onCreate() {
@@ -118,10 +117,11 @@ public class AudioCaptureService extends Service {
                 .build();
 
         AudioFormat audioFormat = new AudioFormat.Builder()
-                .setEncoding(AudioFormat.ENCODING_PCM_8BIT)
-                .setSampleRate(8000)
-                .setChannelMask(AudioFormat.CHANNEL_IN_MONO)
+                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                .setSampleRate(SAMPLING_RATE)
+                .setChannelMask(AudioFormat.CHANNEL_IN_STEREO)
                 .build();
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -168,8 +168,8 @@ public class AudioCaptureService extends Service {
 
             fileOutputStream = new FileOutputStream(outputFile);
 
-            byte[] capturedAudioSamples =
-                    new byte[NUM_SAMPLES_PER_READ];
+            short[] capturedAudioSamples =
+                    new short[NUM_SAMPLES_PER_READ];
 
             while (!audioCaptureThread.isInterrupted()) {
                 audioRecord.read(capturedAudioSamples, 0, NUM_SAMPLES_PER_READ);
@@ -180,7 +180,7 @@ public class AudioCaptureService extends Service {
                 // Log.v(LOG_TAG, "Audio samples captured: ${capturedAudioSamples.toList()}")
 
                 fileOutputStream.write(
-                        capturedAudioSamples,
+                        shortArrayToByteArray(capturedAudioSamples),
                         0,
                         BUFFER_SIZE_IN_BYTES
                 );
@@ -193,7 +193,6 @@ public class AudioCaptureService extends Service {
     }
 
     private void stopAudioCapture() {
-//            requireNotNull(mediaProjection) { "Tried to stop audio capture, but there was no ongoing capture in place!" }
         try {
 
             audioCaptureThread.interrupt();
@@ -211,5 +210,16 @@ public class AudioCaptureService extends Service {
         }
     }
 
+    private byte[] shortArrayToByteArray(short[] shortArr) {
+        // Samples get translated into bytes following little-endianness:
+        // least significant byte first and the most significant byte last
+        byte[] bytes = new byte[shortArr.length * 2];
+        for (int i = 0; i < shortArr.length; i++) {
+            bytes[i * 2] = (byte) (shortArr[i] & 0x00FF);
+            bytes[i * 2 + 1] = (byte) ((int) shortArr[i] >> 8);
+            shortArr[i] = 0;
+        }
+        return bytes;
+    }
 
 }
