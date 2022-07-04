@@ -14,9 +14,9 @@
         android:title="갤러리"/>
 
     <item
-        android:id="@+id/tab_cloud"
+        android:id="@+id/tab_xylophone"
         android:enabled="true"
-        android:icon="@drawable/cloud"
-        android:title="클라우드"/>
+        android:icon="@drawable/xylophoneicon"
+        android:title="실로폰" />
 
 </menu>

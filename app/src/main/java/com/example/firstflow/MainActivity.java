@@ -2,17 +2,11 @@ package com.example.firstflow;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import android.util.Log;
@@ -21,7 +15,7 @@ import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.firstflow.fragment.CloudFragment;
+import com.example.firstflow.fragment.XylophoneFragment;
 import com.example.firstflow.fragment.ContactFragment;
 import com.example.firstflow.fragment.GalleryFragment;
 import com.example.firstflow.fragment.PermissionErrorFragment;
@@ -130,8 +124,8 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(new GalleryFragment());
                     return true;
                 }
-                case R.id.tab_cloud: {
-                    changeFragment(new CloudFragment());
+                case R.id.tab_xylophone: {
+                    changeFragment(new XylophoneFragment());
                     return true;
                 }
             }
