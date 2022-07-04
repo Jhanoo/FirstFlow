@@ -9,20 +9,22 @@
 
     <ToggleButton
         android:id="@+id/xylophone_toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textOff="녹음 시작"
-        android:textOn="정지"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="#00FFFFFF"
+        android:textColor="#D32F2F"
+        android:textOff="▶"
+        android:textOn="■"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView9" />
+        app:layout_constraintTop_toBottomOf="@+id/xylophone_explanation" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="280dp"
         android:layout_height="90dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/silver2"
         app:cardBackgroundColor="#00ffffff"
         app:cardElevation="10dp"
@@ -185,5 +187,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/silver2" />
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/xylophone_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="멋진 연주를 녹음해보세요."
+        android:textColor="#4D000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.example.firstflow.R;
@@ -105,8 +106,12 @@ public class XylophoneFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(recordBtn.isChecked()){
+                    TextView t = v.findViewById(R.id.xylophone_explanation);
+                    t.setText("아름다운 멜로디 녹음 중...");
                     recorder.startRecord();
                 }else{
+                    TextView t = v.findViewById(R.id.xylophone_explanation);
+                    t.setText("멋진 연주를 녹음해보세요.");
                     recorder.stopRecord();
                 }
             }
@@ -114,6 +119,4 @@ public class XylophoneFragment extends Fragment {
 
         return v;
     }
-
-
 }
