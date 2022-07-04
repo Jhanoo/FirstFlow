@@ -205,6 +205,7 @@ public class GalleryFragment extends Fragment {
                 Intent intent = new Intent(getContext(), PictureZoomActivity.class);
                 intent.putExtra("imageUri", adapter.getData(pos));
                 intent.putExtra("position", pos);
+
                 startActivityForResult(intent, 3333);
             }
         });
