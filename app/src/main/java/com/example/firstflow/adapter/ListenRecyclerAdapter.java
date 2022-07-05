@@ -1,14 +1,10 @@
 package com.example.firstflow.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.firstflow.R;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAdapter.ListenViewHolder> {
@@ -57,7 +52,7 @@ public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAd
         listData.add(data);
     }
 
-    public void clearItem(){
+    public void clearItem() {
         listData.clear();
     }
 
@@ -95,12 +90,13 @@ public class ListenRecyclerAdapter extends RecyclerView.Adapter<ListenRecyclerAd
         }
 
         void onBind(String data) {
-            nameTv.setText(data.substring(0,data.length()-4));
+            nameTv.setText(data.substring(0, data.length() - 4));
         }
     }
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
+
         void onMenuClick(View v, int position);
     }
 

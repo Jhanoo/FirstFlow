@@ -7,12 +7,10 @@ import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,8 +31,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -130,17 +126,17 @@ public class ListenFragment extends Fragment {
 
                                 builder.setView(view);
 
-                                ((TextView)view.findViewById(R.id.dialog_textTitle)).setText("파일명 변경");
-                                ((TextView)view.findViewById(R.id.dialog_textMessage)).setText("변경할 파일명을 입력해주세요.");
-                                ((Button)view.findViewById(R.id.dialog_OkBtn)).setText("저장");
-                                ((Button)view.findViewById(R.id.dialog_cancelBtn)).setText("취소");
+                                ((TextView) view.findViewById(R.id.dialog_textTitle)).setText("파일명 변경");
+                                ((TextView) view.findViewById(R.id.dialog_textMessage)).setText("변경할 파일명을 입력해주세요.");
+                                ((Button) view.findViewById(R.id.dialog_OkBtn)).setText("저장");
+                                ((Button) view.findViewById(R.id.dialog_cancelBtn)).setText("취소");
 
                                 AlertDialog alertDialog = builder.create();
 
                                 view.findViewById(R.id.dialog_OkBtn).setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        changeName = ((EditText)view.findViewById(R.id.dialog_editText)).getText().toString();
+                                        changeName = ((EditText) view.findViewById(R.id.dialog_editText)).getText().toString();
                                         if (position != RecyclerView.NO_POSITION) {
                                             String pcmName = files.get(position);
                                             File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
@@ -148,7 +144,7 @@ public class ListenFragment extends Fragment {
                                             File filePrev = new File(path + pcmName);
                                             File fileChange = new File(path + changeName + ".pcm");
                                             int i = 2;
-                                            while(fileChange.exists()) {
+                                            while (fileChange.exists()) {
                                                 String newName = changeName + i;
                                                 fileChange = new File(path + newName + ".pcm");
                                                 i++;
@@ -168,7 +164,7 @@ public class ListenFragment extends Fragment {
                                     }
                                 });
 
-                                if(alertDialog.getWindow() != null){
+                                if (alertDialog.getWindow() != null) {
                                     alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
                                 }
                                 alertDialog.show();
@@ -280,7 +276,7 @@ public class ListenFragment extends Fragment {
         File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
         String pcmList[] = audioCapturesDirectory.list();
 
-        if(pcmList != null){
+        if (pcmList != null) {
             Arrays.sort(pcmList);
 
             files.clear();

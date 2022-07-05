@@ -2,15 +2,12 @@ package com.example.firstflow;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
-import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,10 +27,10 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
     public static final String[] PERMISSIONS = new String[]{
-        Manifest.permission.READ_CONTACTS,
-        Manifest.permission.CALL_PHONE,
-        Manifest.permission.RECORD_AUDIO,
-        Manifest.permission.READ_EXTERNAL_STORAGE
+            Manifest.permission.READ_CONTACTS,
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.READ_EXTERNAL_STORAGE
     };
     public static HashMap<String, Boolean> isAllowed = new HashMap<String, Boolean>();
 
@@ -54,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
             checkVerify(PERMISSIONS);
         }
 
-        if(isAllowed.containsKey(PERMISSIONS[0]) && isAllowed.containsKey(PERMISSIONS[1]) && isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
+        if (isAllowed.containsKey(PERMISSIONS[0]) && isAllowed.containsKey(PERMISSIONS[1]) && isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
             changeFragment(new ContactFragment());
-        }else{
+        } else {
             changeFragment(new PermissionErrorFragment());
         }
 
@@ -69,20 +66,20 @@ public class MainActivity extends AppCompatActivity {
     public void checkVerify(String[] permissions) {
         ArrayList<String> notAllowedPermissions = new ArrayList<>();
 
-        for(String permissionName : permissions){
-            if(checkSelfPermission(permissionName) != PackageManager.PERMISSION_GRANTED){
+        for (String permissionName : permissions) {
+            if (checkSelfPermission(permissionName) != PackageManager.PERMISSION_GRANTED) {
                 // TODO : 거절했을 때 할 액션
                 // if (shouldShowRequestPermissionRationale(permissionName)) {}
 
                 notAllowedPermissions.add(permissionName);
                 isAllowed.put(permissionName, false);
-            }else{
+            } else {
                 isAllowed.put(permissionName, true);
             }
         }
 
-        if(notAllowedPermissions.size() > 0){
-            requestPermissions(notAllowedPermissions.toArray(new String[0]),1);
+        if (notAllowedPermissions.size() > 0) {
+            requestPermissions(notAllowedPermissions.toArray(new String[0]), 1);
         }
     }
 
@@ -96,19 +93,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 초기 화면이 연락처 fragment(권한 두 개가 필요함)이므로 만약 두 권한이 있다면 ContactFragment를 띄워야 한다.
-        if(isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
+        if (isAllowed.get(PERMISSIONS[0]) && isAllowed.get(PERMISSIONS[1])) {
             changeFragment(new ContactFragment());
         }
     }
-
-    public void activityRefresh(){
-        finish();
-        overridePendingTransition(0, 0);
-        Intent intent = getIntent();
-        startActivity(intent);
-        overridePendingTransition(0, 0);
-    }
-
 
     private void SettingListener() {
         btmNaviView.setOnItemSelectedListener(new TabSelectedListener());
@@ -121,33 +109,33 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.tab_contact: {
-                    if(isAllowed.get(Manifest.permission.READ_CONTACTS) && isAllowed.get(Manifest.permission.CALL_PHONE)){
+                    if (isAllowed.get(Manifest.permission.READ_CONTACTS) && isAllowed.get(Manifest.permission.CALL_PHONE)) {
                         changeFragment(new ContactFragment());
-                    }else{
+                    } else {
                         changeFragment(new PermissionErrorFragment());
                     }
                     return true;
                 }
                 case R.id.tab_gallery: {
-                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                    if (isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                         changeFragment(new GalleryFragment());
-                    }else{
+                    } else {
                         changeFragment(new PermissionErrorFragment());
                     }
                     return true;
                 }
                 case R.id.tab_xylophone: {
-                    if(isAllowed.get(Manifest.permission.RECORD_AUDIO)){
+                    if (isAllowed.get(Manifest.permission.RECORD_AUDIO)) {
                         changeFragment(new XylophoneFragment());
-                    }else{
+                    } else {
                         changeFragment(new PermissionErrorFragment());
                     }
                     return true;
                 }
                 case R.id.tab_listen: {
-                    if(isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)){
+                    if (isAllowed.get(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                         changeFragment(new ListenFragment());
-                    }else{
+                    } else {
                         changeFragment(new PermissionErrorFragment());
                     }
                     return true;
@@ -158,19 +146,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeFragment(Fragment fragment){
-        try{
+    public void changeFragment(Fragment fragment) {
+        try {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.home_ly, fragment)
                     .commit();
-        }catch(SecurityException e){
+        } catch (SecurityException e) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.home_ly, new PermissionErrorFragment())
                     .commit();
         }
     }
 
-    public void changeMenuIcon(@NonNull MenuItem item){
+    public void changeMenuIcon(@NonNull MenuItem item) {
         int[] itemIds = {
                 R.id.tab_contact,
                 R.id.tab_gallery,
@@ -192,10 +180,10 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.material_headphone_fill
         };
 
-        for(int i=0;i<itemIds.length;i++){
-            if(itemIds[i] == item.getItemId()){
+        for (int i = 0; i < itemIds.length; i++) {
+            if (itemIds[i] == item.getItemId()) {
                 item.setIcon(fills[i]);
-            }else{
+            } else {
                 menu.getItem(i).setIcon(emptys[i]);
             }
         }

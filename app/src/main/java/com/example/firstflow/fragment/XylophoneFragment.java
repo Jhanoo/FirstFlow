@@ -17,22 +17,18 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.firstflow.AudioCaptureService;
 import com.example.firstflow.R;
-
-import java.io.File;
 
 public class XylophoneFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -176,10 +172,10 @@ public class XylophoneFragment extends Fragment {
 
         ContextCompat.startForegroundService(getContext(), intent);
 
-        if( mToast != null ) {
+        if (mToast != null) {
             mToast.cancel();
         }
-        mToast.makeText(getContext(),"저장 완료", Toast.LENGTH_SHORT).show();
+        mToast.makeText(getContext(), "저장 완료", Toast.LENGTH_SHORT).show();
     }
 
     private void changeText(boolean isChecked) {
