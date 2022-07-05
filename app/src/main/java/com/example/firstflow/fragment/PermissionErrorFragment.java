@@ -75,6 +75,7 @@ public class PermissionErrorFragment extends Fragment {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                         .setData(Uri.parse("package:" + getContext().getPackageName()));
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                getActivity().finish();
             }
         });
 

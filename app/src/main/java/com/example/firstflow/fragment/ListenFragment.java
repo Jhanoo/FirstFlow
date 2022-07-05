@@ -1,17 +1,27 @@
 package com.example.firstflow.fragment;
 
+import android.app.AlertDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioTrack;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.example.firstflow.R;
 import com.example.firstflow.adapter.ListenRecyclerAdapter;
@@ -23,6 +33,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +84,8 @@ public class ListenFragment extends Fragment {
     }
 
     private ListenRecyclerAdapter adapter;
+    String changeName = "바꿀 이름";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,11 +100,9 @@ public class ListenFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        // TODO : 파일 리스트 불러온 것을 recyclerView에 넣기
         ArrayList<String> files = new ArrayList<>();
         getPcmList(files);
         getData(files);
-
 
         adapter.setOnItemClickListener(new ListenRecyclerAdapter.OnItemClickListener() {
             @Override
@@ -101,6 +113,90 @@ public class ListenFragment extends Fragment {
                 pcmName = files.get(position);
                 playPcm();
 
+            }
+
+            @Override
+            public void onMenuClick(View v, int position) {
+                PopupMenu popup = new PopupMenu(getContext(), v);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.option_menu, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.changeNameMenu:
+                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogTheme);
+                                View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_custom, v.findViewById(R.id.layoutDialog));
+
+                                builder.setView(view);
+
+                                ((TextView)view.findViewById(R.id.dialog_textTitle)).setText("파일명 변경");
+                                ((TextView)view.findViewById(R.id.dialog_textMessage)).setText("변경할 파일명을 입력해주세요.");
+                                ((Button)view.findViewById(R.id.dialog_OkBtn)).setText("저장");
+                                ((Button)view.findViewById(R.id.dialog_cancelBtn)).setText("취소");
+
+                                AlertDialog alertDialog = builder.create();
+
+                                view.findViewById(R.id.dialog_OkBtn).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        changeName = ((EditText)view.findViewById(R.id.dialog_editText)).getText().toString();
+                                        if (position != RecyclerView.NO_POSITION) {
+                                            String pcmName = files.get(position);
+                                            File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
+                                            String path = audioCapturesDirectory.getAbsolutePath() + "/";
+                                            File filePrev = new File(path + pcmName);
+                                            File fileChange = new File(path + changeName + ".pcm");
+                                            int i = 2;
+                                            while(fileChange.exists()) {
+                                                String newName = changeName + i;
+                                                fileChange = new File(path + newName + ".pcm");
+                                                i++;
+                                            }
+                                            filePrev.renameTo(fileChange);
+
+                                            getPcmList(files);
+                                            getData(files);
+                                        }
+                                        alertDialog.dismiss();
+                                    }
+                                });
+                                view.findViewById(R.id.dialog_cancelBtn).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+
+                                if(alertDialog.getWindow() != null){
+                                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+                                }
+                                alertDialog.show();
+
+
+                                break;
+
+                            case R.id.deleteMenu:
+                                if (position != RecyclerView.NO_POSITION) {
+                                    String pcmName = files.get(position);
+                                    File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
+                                    String path = audioCapturesDirectory.getAbsolutePath() + "/";
+                                    File file = new File(path + pcmName);
+                                    file.delete();
+
+                                    getPcmList(files);
+                                    getData(files);
+                                }
+                                break;
+
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+
+                popup.show();
             }
         });
 
@@ -115,6 +211,7 @@ public class ListenFragment extends Fragment {
     }
 
     private void getData(ArrayList<String> a) {
+        adapter.clearItem();
         for (int i = 0; i < a.size(); i++) {
             adapter.addItem(a.get(i));
         }
@@ -182,7 +279,13 @@ public class ListenFragment extends Fragment {
     private void getPcmList(ArrayList<String> files) {
         File audioCapturesDirectory = new File(getContext().getExternalFilesDir(null), "/AudioCaptures");
         String pcmList[] = audioCapturesDirectory.list();
-        files.addAll(Arrays.asList(pcmList));
+
+        if(pcmList != null){
+            Arrays.sort(pcmList);
+
+            files.clear();
+            files.addAll(Arrays.asList(pcmList));
+        }
 
     }
 

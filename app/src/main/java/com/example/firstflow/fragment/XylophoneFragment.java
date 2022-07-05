@@ -2,10 +2,13 @@ package com.example.firstflow.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.SoundPool;
 import android.media.projection.MediaProjectionManager;
 import android.os.Build;
@@ -14,18 +17,22 @@ import android.os.Bundle;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.firstflow.AudioCaptureService;
 import com.example.firstflow.R;
+
+import java.io.File;
 
 public class XylophoneFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +73,7 @@ public class XylophoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_xylophone, container, false);
-
+        mToast = new Toast(getContext());
         ToggleButton recordBtn = v.findViewById(R.id.xylophone_toggleButton);
 
         Button[] keyboards = {
@@ -119,8 +126,7 @@ public class XylophoneFragment extends Fragment {
                 public void onClick(View view) {
                     if (soundPoolLoaded) {
                         Handler handler = new Handler();
-
-                        soundPool.play(soundId, 5, 5, 1, 0, 1);
+                        soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1);
                         keyboard.setBackgroundColor(buttonColor);
 
                         // 누르면 색깔이 바뀌고 0.2초 후에 원래대로 돌아옴.
@@ -138,10 +144,11 @@ public class XylophoneFragment extends Fragment {
         recordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(recordBtn.isChecked()){
+                if (recordBtn.isChecked()) {
                     startCapturing();
-                }else{
+                } else {
                     stopCapturing();
+
                 }
             }
         });
@@ -151,6 +158,7 @@ public class XylophoneFragment extends Fragment {
 
     private final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 42;
     private final int MEDIA_PROJECTION_REQUEST_CODE = 13;
+    private Toast mToast;
 
     private void startCapturing() {
         if (!isRecordAudioPermissionGranted()) {
@@ -165,14 +173,20 @@ public class XylophoneFragment extends Fragment {
 
         Intent intent = new Intent(getContext(), AudioCaptureService.class);
         intent.setAction(AudioCaptureService.ACTION_STOP);
+
         ContextCompat.startForegroundService(getContext(), intent);
+
+        if( mToast != null ) {
+            mToast.cancel();
+        }
+        mToast.makeText(getContext(),"저장 완료", Toast.LENGTH_SHORT).show();
     }
 
-    private void changeText(boolean isChecked){
-        if(isChecked){
+    private void changeText(boolean isChecked) {
+        if (isChecked) {
             TextView t = getView().findViewById(R.id.xylophone_explanation);
             t.setText("아름다운 멜로디 녹음 중...");
-        }else{
+        } else {
             TextView t = getView().findViewById(R.id.xylophone_explanation);
             t.setText("멋진 연주를 녹음해보세요.");
         }
@@ -209,7 +223,7 @@ public class XylophoneFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == MEDIA_PROJECTION_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                Toast.makeText(
+                mToast.makeText(
                         getContext(),
                         "녹음을 시작합니다.",
                         Toast.LENGTH_SHORT
@@ -224,14 +238,14 @@ public class XylophoneFragment extends Fragment {
 
                 ContextCompat.startForegroundService(getContext(), intent);
             } else {
-                Toast.makeText(
+                mToast.makeText(
                         getContext(), "시작하기 버튼을 누르셔야 이용 가능합니다.",
                         Toast.LENGTH_SHORT
                 ).show();
 
                 // Toggle 버튼은 권한 여부 상관없이 바뀌므로 다시 원래대로 돌려야 함.
                 ToggleButton t = getView().findViewById(R.id.xylophone_toggleButton);
-                t.setText("▶");
+                t.setChecked(false);
             }
         }
     }
