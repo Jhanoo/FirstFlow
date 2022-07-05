@@ -60,6 +60,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
     private Uri getContactPhotoUri(ContentResolver cr, long photoId) {
         Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, photoId);
         Uri displayPhotoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
+
         try {
             AssetFileDescriptor fd =
                     cr.openAssetFileDescriptor(displayPhotoUri, "r");

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -166,7 +165,7 @@ public class ContactFragment extends Fragment {
                 selectionArgs, sortOrder);
 
 
-        ArrayList<Contact> contactList = new ArrayList<Contact>();
+        ArrayList<Contact> contactList = new ArrayList<>();
 
 
         if (contactCursor.moveToFirst()) {
