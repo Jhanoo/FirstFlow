@@ -4,7 +4,7 @@
     android:padding="10dp"
     android:shape="rectangle">
     <!-- 배경 색 설정 / 제가 color에 지정한 색입니다 ㅎㅎ -->
-    <solid android:color="#FFA390EE" />
+    <solid android:color="@color/colorPrimary" />
     <!-- 모서리 곡선 설정 -->
     <corners
         android:topLeftRadius="15dp"

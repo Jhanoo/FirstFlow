@@ -5,25 +5,16 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.2158273381294964" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/box_border.xml" value="0.178" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/dialog_background.xml" value="0.3465" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/dialog_button.xml" value="0.3465" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/dialog_cancelbutton.xml" value="0.3465" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/dialog_title.xml" value="0.3465" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/ic_launcher_background.xml" value="0.178" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/material_contact_empty.xml" value="0.2535" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/material_contact_fill.xml" value="0.2535" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/drawable/xylophone_radius.xml" value="0.254" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_detail.xml" value="0.33" />
+        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_detail.xml" value="0.259375" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_contact_recycler_adapter.xml" value="0.25" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_gallery_recycler_adapter.xml" value="0.27395833333333336" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/box_border.xml" value="0.1546875" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/dialog_custom.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_cloud.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_contact.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_gallery.xml" value="0.2203125" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_listen_recycler_adapter.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_permission_error.xml" value="0.33" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/layout/fragment_xylophone.xml" value="0.25" />
         <entry key="..\:/Users/Jay/AndroidStudioProjects/FirstFlow/app/src/main/res/menu/btm_navi_menu.xml" value="0.27395833333333336" />
@@ -42,6 +33,7 @@
         <entry key="app/src/main/res/layout/dialog_background.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/dialog_custom.xml" value="0.21145833333333333" />
         <entry key="app/src/main/res/layout/fragment_contact.xml" value="0.2125" />
+        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/fragment_listen.xml" value="0.18795289855072464" />
         <entry key="app/src/main/res/layout/fragment_listen_recycler_adapter.xml" value="0.3659543023593184" />
         <entry key="app/src/main/res/layout/fragment_permission_error.xml" value="0.2824986775716146" />
