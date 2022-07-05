@@ -4,25 +4,25 @@
     <item
         android:id="@+id/tab_contact"
         android:enabled="true"
-        android:icon="@drawable/contacticon"
-        android:title="연락처"/>
+        android:icon="@drawable/material_contacts_fill"
+        android:title="연락처" />
 
     <item
         android:id="@+id/tab_gallery"
         android:enabled="true"
-        android:icon="@drawable/gallery"
-        android:title="갤러리"/>
+        android:icon="@drawable/material_gallery_empty"
+        android:title="갤러리" />
 
     <item
         android:id="@+id/tab_xylophone"
         android:enabled="true"
-        android:icon="@drawable/xylophoneicon"
+        android:icon="@drawable/material_xylophone_empty"
         android:title="실로폰 연주" />
 
     <item
         android:id="@+id/tab_listen"
         android:enabled="true"
-        android:icon="@drawable/headseticon"
+        android:icon="@drawable/material_headphone_empty"
         android:title="재생" />
 
 </menu>

@@ -34,6 +34,7 @@ public class ContactDetailActivity extends AppCompatActivity {
         TextView nameTextView = (TextView)findViewById(R.id.contact_name);
         TextView phoneTextView = (TextView)findViewById(R.id.contact_num);
         ImageButton callImageButton = (ImageButton)findViewById(R.id.contact_callBtn);
+        ImageButton smsImageButton = (ImageButton)findViewById(R.id.contact_smsBtn);
         ImageView profileImageView = (ImageView)findViewById(R.id.contactDetail_profile);
 
         Long photoId = detailIntent.getLongExtra("photoId", 0);
@@ -54,6 +55,14 @@ public class ContactDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String tel = "tel:"+detailIntent.getStringExtra("phone");
                 startActivity(new Intent("android.intent.action.CALL", Uri.parse(tel)));
+            }
+        });
+
+        smsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String smsString = "sms:"+detailIntent.getStringExtra("phone");
+                startActivity(new Intent(Intent.ACTION_SENDTO, Uri.parse(smsString)));
             }
         });
     }

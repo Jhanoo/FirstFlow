@@ -4,11 +4,14 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
+import android.util.Pair;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static HashMap<String, Boolean> isAllowed = new HashMap<String, Boolean>();
 
     BottomNavigationView btmNaviView;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         btmNaviView = findViewById(R.id.bottomNavigationView);
         btmNaviView.setSelectedItemId(R.id.tab_contact);
+        menu = btmNaviView.getMenu();
 
         // Permission Check
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -113,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
     class TabSelectedListener implements BottomNavigationView.OnItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            changeMenuIcon(item);
+
             switch (item.getItemId()) {
                 case R.id.tab_contact: {
                     if(isAllowed.get(Manifest.permission.READ_CONTACTS) && isAllowed.get(Manifest.permission.CALL_PHONE)){
@@ -161,6 +168,37 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.home_ly, new PermissionErrorFragment())
                     .commit();
+        }
+    }
+
+    public void changeMenuIcon(@NonNull MenuItem item){
+        int[] itemIds = {
+                R.id.tab_contact,
+                R.id.tab_gallery,
+                R.id.tab_xylophone,
+                R.id.tab_listen
+        };
+
+        int[] emptys = {
+                R.drawable.material_contacts_empty,
+                R.drawable.material_gallery_empty,
+                R.drawable.material_xylophone_empty,
+                R.drawable.material_headphone_empty
+        };
+
+        int[] fills = {
+                R.drawable.material_contacts_fill,
+                R.drawable.material_gallery_fill,
+                R.drawable.material_xylophone_fill,
+                R.drawable.material_headphone_fill
+        };
+
+        for(int i=0;i<itemIds.length;i++){
+            if(itemIds[i] == item.getItemId()){
+                item.setIcon(fills[i]);
+            }else{
+                menu.getItem(i).setIcon(emptys[i]);
+            }
         }
     }
 

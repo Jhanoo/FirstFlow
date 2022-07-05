@@ -66,6 +66,10 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 
     public static Bitmap loadContactPhoto(ContentResolver cr, long photoId) {
         byte[] photoBytes = null;
