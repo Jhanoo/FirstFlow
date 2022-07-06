@@ -19,7 +19,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="이름 검색"
+            android:hint="이름, 전화번호 검색"
             android:inputType="textPersonName"
             android:paddingLeft="12dp"
             android:textColor="#80000000"

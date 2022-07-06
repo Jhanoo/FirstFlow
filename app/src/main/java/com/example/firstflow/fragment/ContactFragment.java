@@ -203,7 +203,7 @@ public class ContactFragment extends Fragment {
         for (int i = 0; i < list.size(); i++) {
             Contact current = list.get(i);
 
-            if (current.getName().contains(key)) {
+            if (current.getName().contains(key) || current.getPhoneNum().contains(key)) {
                 ret.add(current);
             }
         }
